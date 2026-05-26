@@ -12,7 +12,7 @@ class InputOutputHandler:
 
         self.click_count = 0
         self.timer = None
-        self.click_window = 0.4  # Zeitfenster in Sekunden, um Mehrfachklicks zu sammeln
+        self.click_window = 0.6  # Zeitfenster in Sekunden, um Mehrfachklicks zu sammeln
 
         self.button.when_pressed = self._on_button_pressed
         self.led.on()
