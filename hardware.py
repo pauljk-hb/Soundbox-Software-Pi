@@ -8,11 +8,11 @@ class InputOutputHandler:
         self.led = LED(led_pin)
         # bounce_time verhindert Hardware-Prellen
         self.button = Button(button_pin, bounce_time=0.05)
-        self.click_callback = click_callback  # Funktion, die aufgerufen wird, wenn Klicks fertig gezählt sind
+        self.click_callback = click_callback
 
         self.click_count = 0
         self.timer = None
-        self.click_window = 0.6  # Zeitfenster in Sekunden, um Mehrfachklicks zu sammeln
+        self.click_window = 0.6
 
         self.button.when_pressed = self._on_button_pressed
         self.led.on()
@@ -41,7 +41,7 @@ class InputOutputHandler:
             self.led.off()
 
     def blink_led(self, duration: float, speed: float = 0.2):
-        """Lässt die LED für eine gewisse Zeit blinken, ohne den Hauptthread zu blockieren."""
+        """Lässt die LED für eine gewisse Zeit blinken, ohne den Hauptthread zu blockieren!"""
 
         def _blink():
             end_time = time.time() + duration
