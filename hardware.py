@@ -14,16 +14,13 @@ class InputOutputHandler:
         self.timer = None
         self.click_window = 0.4  # Zeitfenster in Sekunden, um Mehrfachklicks zu sammeln
 
-        # Event an den Button hängen
         self.button.when_pressed = self._on_button_pressed
-        self.led.on()  # Standardmäßig bereit
+        self.led.on()
 
     def _on_button_pressed(self):
         """Wird bei JEDEM physischen Knopfdruck sofort aufgerufen."""
         self.click_count += 1
 
-        # Wenn der Timer läuft, warten wir noch ab.
-        # Wenn nicht, starten wir einen neuen Thread-Timer für das Zeitfenster.
         if self.timer is None or not self.timer.is_alive():
             self.timer = threading.Timer(self.click_window, self._evaluate_clicks)
             self.timer.start()
@@ -31,9 +28,8 @@ class InputOutputHandler:
     def _evaluate_clicks(self):
         """Wird nach Ablauf des Zeitfensters im Hintergrund aufgerufen."""
         final_clicks = self.click_count
-        self.click_count = 0  # Zurücksetzen für das nächste Mal
+        self.click_count = 0
 
-        # Leite die Anzahl der Klicks an die Haupt-Engine weiter
         if self.click_callback:
             self.click_callback(final_clicks)
 
@@ -52,6 +48,6 @@ class InputOutputHandler:
             while time.time() < end_time:
                 self.led.toggle()
                 time.sleep(speed)
-            self.led.on()  # Danach wieder an
+            self.led.on()
 
         threading.Thread(target=_blink, daemon=True).start()
