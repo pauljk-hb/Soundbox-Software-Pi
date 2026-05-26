@@ -13,7 +13,6 @@ class Configuration:
             "led_blink": True
         }
 
-        # Vollständige, verschachtelte Menüstruktur
         self.menu_structure = [
             {
                 "id": "mode",
