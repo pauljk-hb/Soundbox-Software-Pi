@@ -10,7 +10,8 @@ class Configuration:
         self.data = {
             "mode": "Football",
             "volume_step": "normal",
-            "led_blink": True
+            "led_blink": True,
+            "playback_mode": "shuffle"
         }
 
         self.menu_structure = [
@@ -21,6 +22,15 @@ class Configuration:
                 "sub_items": [
                     {"id": "Football", "name": "Football", "sound": "/home/soundbox/sounds/system/football_aktiv.mp3"},
                     {"id": "Fußball", "name": "Fußball", "sound": "/home/soundbox/sounds/system/fussball_aktiv.mp3"}
+                ]
+            },
+            {
+                "id": "playback",
+                "name": "Abspielmodus",
+                "sound": "/home/soundbox/sounds/system/abspielmodus.mp3",
+                "sub_items": [
+                    {"id": "shuffle", "name": "Zufall", "sound": "/home/soundbox/sounds/system/zufall.mp3"},
+                    {"id": "linear", "name": "Linear", "sound": "/home/soundbox/sounds/system/linear.mp3"}
                 ]
             },
             {
@@ -76,6 +86,13 @@ class Configuration:
 
     def set_current_mode(self, mode_name: str):
         self.data["mode"] = mode_name
+        self.save()
+
+    def get_playback_mode(self) -> str:
+        return self.data.get("playback_mode", "shuffle")
+
+    def set_playback_mode(self, mode: str):
+        self.data["playback_mode"] = mode
         self.save()
 
     def get_volume_string(self) -> str:

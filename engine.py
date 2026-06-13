@@ -57,7 +57,8 @@ class SoundBoxEngine:
             print("Gesperrt: Sound läuft oder Cooldown aktiv.")
             return
 
-        sound_path = self.current_strategy.get_next_sound()
+        current_playback = self.config.get_playback_mode()
+        sound_path = self.current_strategy.get_next_sound(current_playback)
         if not sound_path:
             print("Kein Sound in diesem Modus gefunden!")
             if self.hardware:
@@ -165,6 +166,11 @@ class SoundBoxEngine:
             self.config.set_current_mode(option_id)
             self.current_strategy = self.strategies[option_id]
             print(f"Modus geändert auf: {option_id}")
+
+        elif parent_id == "playback":
+            # option_id ist hier "shuffle" oder "linear"
+            self.config.set_playback_mode(option_id)
+            print(f"Abspielmodus geändert auf: {option_id}")
 
         elif parent_id == "volume":
             self.config.set_volume_step(option_id)
